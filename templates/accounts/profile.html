@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!-- Navbar 2-->
+
+    <!-- Navbar 2-->
+<nav class="navbar navbar-expand py-5">
+        <div class="container">
+          <a href="{% url 'recipe_app:recipes' %}" class="navbar-brand text-warning"><h1 class="display-5">FOODIFY</h1></a>
+          <form class="form-group" action="{% url 'recipe_app:search' %}">
+            <div class="input-group mt-5">
+                <input class="form-control" type="text" placeholder="Search Recipe" name="keywords" value="{{ values.keywords }}">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">Search</button>
+                </div>
+            </div>
+          </form>
+          
+        </div>
+      </nav>
+
+    <div class="container">
+        <h3 class="display-5">Profile</h3>
+        <div>
+            {% if user.userprofile.profile_photo %}
+                <img src="{{ user.userprofile.profile_photo.url }}" alt="" class="main-profile-img">
+            {% else %}
+                <img src="{% static 'img/white.png' %}">
+            {% endif %}
+        </div>
+        <p>Username: <span style="color: darkcyan;">{{ user }}</span></p>
+        <p>First name: <span style="color: darkcyan;">{{ user.first_name }}</span></p>
+        <p>Last name: <span style="color: darkcyan;">{{ user.last_name }}</span></p>
+        <p>Email: <span style="color: darkcyan;">{{ user.email }}</span></p>
+
+        <p>Description: {{ user.userprofile.description }}</p>
+        <p>About: {{ user.userprofile.about }}</p>
+        <p>Location: {{ user.userprofile.location }}</p>
+        <p>Website: <a href="{{ user.userprofile.website }}">{{ user.userprofile.website }}</a></p>
+    
+
+     <!-- Main Section -->
+        <h1>Your Recipes</h1>
+        <div class="row mb-5 mt-5">
+                {% for post in posts %}
+            <div class="col-lg-4">
+                <div>
+                    <img src="{{ post.photo_main.url }}" alt="" class="img-fluid">
+                </div>
+                <h4>{{ post.title }}</h4>
+                <p class="text-muted">{{ post.list_date }}</p>
+                <p class="lead">{{ post.body|truncatechars:140 }}</p>
+              
+            </div>
+            {% endfor %}     
+        </div>
+    </div>
+        
+    
+
+{% endblock %}

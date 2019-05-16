@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load humanize %}
+
+{% block content %}
+<!-- Navbar 2-->
+<nav class="navbar navbar-expand py-5">
+    <div class="container">
+      <a href="{% url 'recipes' %}" class="navbar-brand text-warning"><h1 class="display-5">FOODIFY</h1></a>
+      <form class="form-group">
+        <div class="input-group mt-5">
+            <input class="form-control" type="text" placeholder="Search Recipe">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Search</button>
+            </div>
+        </div>
+      </form>
+      
+    </div>
+  </nav>
+
+  <!-- Main Section -->
+  <section id="main-section">
+      <div class="container">
+
+        <!-- Grid -->
+        <h2>All Recipes</h2>
+        <div class="row mb-5">
+          {% if recipes.user %}
+            {% for recipe in recipes %}
+            <div class="col-lg-4">
+                <div>
+                  <img src="{{ recipe.photo_main.url }}" alt="" class="img-fluid">
+                </div>
+                <h5 class="mt-2">By: {{ recipe.author }}</h5>
+                  <p class="text-muted">{{ recipe.list_date }}</p>
+                <h3>{{ recipe.title }}</h1>
+                  <p>{{ recipe.body|truncatechars:140 }}</p>
+                  <a href="{% url 'recipe' recipe.id %}" class="btn btn-danger">Read More</a>
+  
+            </div>
+            {% endfor %}
+          {% else %}
+          <div class="col-md-12">
+            <p>No Available Recipes</p>
+          </div>
+          {% endif %}
+
+          </div>
+
+      </div>
+    </section>
+{% endblock %}

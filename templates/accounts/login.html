@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<nav class="navbar navbar-expand py-5">
+    <div class="container">
+        <a href="{% url 'recipe_app:recipes' %}" class="navbar-brand text-warning"><h1 class="display-5">FOODIFY</h1></a>
+    </div>
+</nav>
+
+    <div class="container">
+        <h1>Log in</h1>
+        <form action="{% url 'accounts:login' %}" class="form-group" method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+
+            {% if request.GET.next %}
+                <input type="hidden" name="next" value="{{ request.GET.next }}">
+            {% endif %}
+            
+            <input type="submit" class="form-control btn btn-primary" value="Login">
+        </form>
+    </div>
+    
+{% endblock %}

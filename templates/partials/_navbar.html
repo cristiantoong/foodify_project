@@ -1,0 +1,65 @@
+<!-- Navbar-->
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <div class="container">
+
+      <!-- hamburger menu -->
+      {% if user.is_authenticated %}
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a href="{% url 'pages:recipes' %}" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'recipe_app:recipes' %}" class="nav-link">Recipes</a>
+              </li>
+            <li class="nav-item">
+              <a href="{% url 'pages:about' %}" class="nav-link">About</a>
+            </li>
+          </ul>
+        </div>
+      {% else %}
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a href="{% url 'pages:recipes' %}" class="nav-link">Home</a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'pages:about' %}" class="nav-link">About</a>
+              </li>
+            </ul>
+          </div>   
+      {% endif %}
+
+      
+
+      {% if user.is_authenticated %}
+      <h5>logged in as: <span style="color:darkcyan"><a href="{% url 'accounts:profile' %}">{{ request.user }}</a></span></h5>
+        <form action="{% url 'accounts:logout' %}" class="form-group" method="post">
+          {% csrf_token %}
+          <a href="{% url 'recipe_app:create' %}" class="ml-2 mt-3">New Recipe</a>
+          <a href="{% url 'accounts:edit_profile' %}" class="ml-2 mt-3">Edit Profile</a>
+          <a href="{% url 'accounts:change_password' %}" class="ml-2 mt-3">Change Password</a>
+          <a href="{% url 'accounts:reset_password' %}" class="ml-2 mt-3">Reset Password</a>
+          <button class="btn btn-dark ml-2 mt-3" type="submit">Logout</button>
+        </form>
+      {% else %}
+        <form class="form-inline">
+          <a class="btn btn-primary mr-2" href="{% url 'accounts:profile' %}">Log In</a>
+          <a href="{% url 'accounts:signup' %}" class="btn btn-success mr-2">Sign Up</a>
+          <a href="{% url 'accounts:reset_password' %}">Forgot Password?</a>
+        </form>
+      {% endif %}
+
+
+    </div>
+  </nav>
+
+

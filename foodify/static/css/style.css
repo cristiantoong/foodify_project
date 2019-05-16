@@ -1,0 +1,17 @@
+.prof-img {
+	border-radius: 50%;
+	height: 60px;
+	width: 60px;
+}
+
+.about-img {
+	border-radius: 50%!important;
+    width: 100px;
+    height: 100px;
+}
+
+.main-profile-img {
+	border-radius: 50%;
+	height: 200px;
+	width: 200px;
+}
